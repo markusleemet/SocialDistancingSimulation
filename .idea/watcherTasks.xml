@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions">
-    <TaskOptions isEnabled="false">
+    <TaskOptions isEnabled="true">
       <option name="arguments" value="$FileName$ -P" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
@@ -9,7 +9,7 @@
       <option name="fileExtension" value="jade" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Pug/Jade" />
-      <option name="output" value="~/html/$FileNameWithoutExtension$.html" />
+      <option name="output" value="html/$FileNameWithoutExtension$.html" />
       <option name="outputFilters">
         <array />
       </option>
