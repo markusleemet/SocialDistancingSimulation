@@ -34,10 +34,12 @@ function draw() {
 
     // Update mouse position
     mouse.position.x = mouseX;
+    console.log(mouseX)
+    console.log(mouseY)
     mouse.position.y = mouseY;
 
     // Draw sprites
-    drawSprites(sprites);
+    drawSprites();
 }
 
 function createBorders(){
@@ -66,13 +68,13 @@ function createBorders(){
 function createMouseSprite(){
     console.log("Sprite for mouse created");
     mouse = createSprite(mouseX, mouseY, spriteRadius, spriteRadius);
-    mouse.visible = true;
+    mouse.addAnimation("corona", "../static/corona.png")
     mouse.setCollider('circle', 0, 0, 200);
 }
 
 function createSprites(){
     // Create moving objects
-    for (let i = 0; i < numberFromUrl; i++) {
+    for (let i = 0; i < 20; i++) {
         let sprite = createSprite(
             random(spriteRadius, canvasWidth - spriteRadius),
             random(spriteRadius, canvasHeight - spriteRadius),
