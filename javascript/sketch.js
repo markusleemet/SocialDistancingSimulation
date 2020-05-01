@@ -33,7 +33,7 @@ function draw() {
     sprites.bounce(mouse)
 
     sprites.overlap(bullets,  function(){
-        this.remove();
+        this.changeAnimation('infected');
     })
 
     // Update mouse position
@@ -97,6 +97,7 @@ function createSprites(){
         sprite.addAnimation("moving", "../static/sprite1.png", "../static/sprite2.png", "../static/sprite3.png",
             "../static/sprite4.png", "../static/sprite5.png", "../static/sprite6.png", "../static/sprite5.png",
             "../static/sprite4.png","../static/sprite3.png","../static/sprite2.png","../static/sprite1.png");
+        sprite.addAnimation('infected', "../static/infected1.png", "../static/infected2.png");
         sprites.add(sprite);
     }
 }
