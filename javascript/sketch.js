@@ -1,52 +1,47 @@
-let canvasHeight = window.innerHeight;
-let canvasWidth = window.innerWidth;
-let numberOfSprites = 20;
+// Unit variables
+const canvasHeight = window.innerHeight;
+const canvasWidth = window.innerWidth;
 let spriteRadius = 10;
-let mouse;
 
-var sprites;
-var walls;
+//Sprites variables
+let mouse;
+let sprites;
+let walls;
+
 
 function setup(){
     console.log("setup");
     createCanvas(canvasWidth, canvasHeight);
     sprites = new Group();
     walls = new Group();
-    mouse = createMouseSprite()
 
-    // Create moving objects
-    for (let i = 0; i < numberOfSprites; i++) {
-        let sprite = createSprite(
-            random(spriteRadius, canvasWidth - spriteRadius),
-            random(spriteRadius, canvasHeight - spriteRadius),
-            spriteRadius * 2,
-            spriteRadius * 2);
-        sprite.shapeColor = color(random(255), random(255), random(255));
-        sprite.setVelocity(random(-5, 5), random(-5, 5));
-        sprite.setCollider('rectangle', 0, 0, 50, 50);
-        sprites.add(sprite);
-    }
+
+    createSprites();
+    createMouseSprite();
 
     //Create walls so that objects aren't able to leave canvas
-    createBorders()
+    createBorders();
 }
 
 function draw() {
-    background('#4fe75f');
+    background('rgba(79,231,95, 1)');
     frameRate(60);
+
+    // Sprites bounce off other sprites and walls
     sprites.bounce(walls)
-    sprites.bounce(mouse, function(){
-        this.setVelocity(random(-5, 5), random(-5, 5));
-    })
     sprites.bounce(sprites)
-    drawSprites(sprites);
-    drawSprites(walls);
-    drawSprites(mouse);
+    sprites.bounce(mouse)
+
+    // Update mouse position
     mouse.position.x = mouseX;
     mouse.position.y = mouseY;
+
+    // Draw sprites
+    drawSprites(sprites);
 }
 
 function createBorders(){
+    console.log("Wall created")
     topWall = createSprite(canvasWidth / 2, 1, canvasWidth, 2);
     topWall.immovable = true;
     topWall.setCollider('rectangle')
@@ -69,8 +64,27 @@ function createBorders(){
 }
 
 function createMouseSprite(){
-    let sprite = createSprite(mouseX, mouseY, spriteRadius, spriteRadius);
-    sprite.visible = false;
-    sprite.setCollider('circle', 0, 0, 200);
-    return sprite;
+    console.log("Sprite for mouse created");
+    mouse = createSprite(mouseX, mouseY, spriteRadius, spriteRadius);
+    mouse.visible = true;
+    mouse.setCollider('circle', 0, 0, 200);
+}
+
+function createSprites(){
+    // Create moving objects
+    for (let i = 0; i < numberFromUrl; i++) {
+        let sprite = createSprite(
+            random(spriteRadius, canvasWidth - spriteRadius),
+            random(spriteRadius, canvasHeight - spriteRadius),
+            spriteRadius * 2,
+            spriteRadius * 2);
+        sprite.shapeColor = color(random(255), random(255), random(255));
+        sprite.setVelocity(random(-5, 5), random(-5, 5));
+        sprite.setCollider('rectangle', 0, 0, 100, 100);
+        sprite.rotationSpeed = 1;
+        sprite.addAnimation("moving", "../static/sprite1.png", "../static/sprite2.png", "../static/sprite3.png",
+            "../static/sprite4.png", "../static/sprite5.png", "../static/sprite6.png", "../static/sprite5.png",
+            "../static/sprite4.png","../static/sprite3.png","../static/sprite2.png","../static/sprite1.png");
+        sprites.add(sprite);
+    }
 }
