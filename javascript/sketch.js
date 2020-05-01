@@ -65,7 +65,7 @@ function checkForExit(){
 
 function mousePressed(){
     let bullet = createSprite(mouseX, mouseY, spriteRadius, spriteRadius);
-    bullet.addAnimation('bullet', "../static/bullet1.png", "../static/bullet1.png");
+    bullet.addAnimation('bullet', "static/bullet1.png", "static/bullet1.png");
     bullet.setVelocity(random(-5, 5), random(-5, 5));
     bullet.setCollider('circle');
     bullets.add(bullet);
@@ -75,7 +75,7 @@ function mousePressed(){
 function createMouseSprite(){
     console.log("Sprite for mouse created");
     mouse = createSprite(mouseX, mouseY, spriteRadius, spriteRadius);
-    mouse.addAnimation("corona", "../static/corona1.png");
+    mouse.addAnimation("corona", "static/corona1.png");
     mouse.setCollider('circle', 0, 0, 200);
 }
 
@@ -89,11 +89,11 @@ function createSprites(){
             spriteRadius * 2);
         sprite.setVelocity(random(-5, 5), random(-5, 5));
         sprite.setCollider('rectangle', 0, 0, 100, 100);
-        sprite.rotationSpeed = 1;
-        sprite.addAnimation("moving", "../static/sprite1.png", "../static/sprite2.png", "../static/sprite3.png",
-            "../static/sprite4.png", "../static/sprite5.png", "../static/sprite6.png", "../static/sprite5.png",
-            "../static/sprite4.png","../static/sprite3.png","../static/sprite2.png","../static/sprite1.png");
-        sprite.addAnimation('infected', "../static/infected1.png", "../static/infected2.png");
+        sprite.rotationSpeed = random(-1, 1);
+        sprite.addAnimation("moving", "static/sprite1.png", "static/sprite2.png", "static/sprite3.png",
+            "static/sprite4.png", "static/sprite5.png", "static/sprite6.png", "static/sprite5.png",
+            "static/sprite4.png","static/sprite3.png","static/sprite2.png","static/sprite1.png");
+        sprite.addAnimation('infected', "static/infected1.png", "static/infected2.png");
         movingObjects.add(sprite);
     }
 }
