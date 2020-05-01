@@ -111,6 +111,5 @@ function spriteInfected(movingObject, bullet){
 }
 
 function restart(){
-    console.log("reload");
     location.reload();
 }
