@@ -7,6 +7,7 @@ let spriteRadius = 10;
 let mouse;
 let sprites;
 let walls;
+let bullets;
 
 
 function setup(){
@@ -14,12 +15,11 @@ function setup(){
     createCanvas(canvasWidth, canvasHeight);
     sprites = new Group();
     walls = new Group();
+    bullets = new Group();
 
 
     createSprites();
     createMouseSprite();
-
-    //Create walls so that objects aren't able to leave canvas
     createBorders();
 }
 
@@ -32,10 +32,12 @@ function draw() {
     sprites.bounce(sprites)
     sprites.bounce(mouse)
 
+    sprites.overlap(bullets,  function(){
+        this.remove();
+    })
+
     // Update mouse position
     mouse.position.x = mouseX;
-    console.log(mouseX)
-    console.log(mouseY)
     mouse.position.y = mouseY;
 
     // Draw sprites
@@ -65,10 +67,19 @@ function createBorders(){
     walls.add(rightWall);
 }
 
+function mousePressed(){
+    let bullet = createSprite(mouseX, mouseY, spriteRadius, spriteRadius);
+    bullet.addAnimation('bullet', "../static/bullet1.png", "../static/bullet1.png");
+    bullet.setVelocity(random(-5, 5), random(-5, 5));
+    bullet.setCollider('circle');
+    bullets.add(bullet);
+    bullet.life = 60;
+}
+
 function createMouseSprite(){
     console.log("Sprite for mouse created");
     mouse = createSprite(mouseX, mouseY, spriteRadius, spriteRadius);
-    mouse.addAnimation("corona", "../static/corona.png")
+    mouse.addAnimation("corona", "../static/corona1.png");
     mouse.setCollider('circle', 0, 0, 200);
 }
 
@@ -80,13 +91,13 @@ function createSprites(){
             random(spriteRadius, canvasHeight - spriteRadius),
             spriteRadius * 2,
             spriteRadius * 2);
-        sprite.shapeColor = color(random(255), random(255), random(255));
         sprite.setVelocity(random(-5, 5), random(-5, 5));
         sprite.setCollider('rectangle', 0, 0, 100, 100);
         sprite.rotationSpeed = 1;
         sprite.addAnimation("moving", "../static/sprite1.png", "../static/sprite2.png", "../static/sprite3.png",
             "../static/sprite4.png", "../static/sprite5.png", "../static/sprite6.png", "../static/sprite5.png",
             "../static/sprite4.png","../static/sprite3.png","../static/sprite2.png","../static/sprite1.png");
+
         sprites.add(sprite);
     }
 }
