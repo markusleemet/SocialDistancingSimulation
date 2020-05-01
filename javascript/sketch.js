@@ -6,7 +6,6 @@ let spriteRadius = 10;
 //Sprites variables
 let mouse;
 let sprites;
-let walls;
 let bullets;
 
 
@@ -14,23 +13,21 @@ function setup(){
     console.log("setup");
     createCanvas(canvasWidth, canvasHeight);
     sprites = new Group();
-    walls = new Group();
     bullets = new Group();
 
 
     createSprites();
     createMouseSprite();
-    createBorders();
 }
 
 function draw() {
     background('rgba(79,231,95, 1)');
     frameRate(60);
 
-    // Sprites bounce off other sprites and walls
-    sprites.bounce(walls)
     sprites.bounce(sprites)
     sprites.bounce(mouse)
+
+    checkForExit()
 
     sprites.overlap(bullets,  function(){
         this.changeAnimation('infected');
@@ -44,27 +41,29 @@ function draw() {
     drawSprites();
 }
 
-function createBorders(){
-    console.log("Wall created")
-    topWall = createSprite(canvasWidth / 2, 1, canvasWidth, 2);
-    topWall.immovable = true;
-    topWall.setCollider('rectangle')
-    walls.add(topWall);
+function checkForExit(){
+    for(let i = 0; i < sprites.size(); i++) {
+        let sprite = allSprites[i];
+        if (sprite.position.x < 0) {
+            sprite.position.x = 1;
+            sprite.velocity.x = abs(sprite.velocity.x);
+        }
 
-    bottomWall = createSprite(canvasWidth / 2, canvasHeight - 1,  canvasWidth, 2);
-    bottomWall.immovable = true;
-    bottomWall.setCollider('rectangle')
-    walls.add(bottomWall);
+        if (sprite.position.x > canvasWidth) {
+            sprite.position.x = canvasWidth - 1;
+            sprite.velocity.x = -abs(sprite.velocity.x);
+        }
 
-    leftWall = createSprite(1, canvasHeight / 2, 2, canvasHeight);
-    leftWall.immovable = true;
-    leftWall.setCollider('rectangle')
-    walls.add(leftWall);
+        if (sprite.position.y < 0) {
+            sprite.position.y = 1;
+            sprite.velocity.y = abs(sprite.velocity.y);
+        }
 
-    rightWall = createSprite(canvasWidth - 1, canvasHeight / 2, 2, canvasHeight);
-    rightWall.immovable = true;
-    rightWall.setCollider('rectangle')
-    walls.add(rightWall);
+        if (sprite.position.y > canvasHeight) {
+            sprite.position.y = canvasHeight - 1;
+            sprite.velocity.y = -abs(sprite.velocity.y);
+        }
+    }
 }
 
 function mousePressed(){
@@ -73,7 +72,7 @@ function mousePressed(){
     bullet.setVelocity(random(-5, 5), random(-5, 5));
     bullet.setCollider('circle');
     bullets.add(bullet);
-    bullet.life = 120;
+    bullet.life = 90;
 }
 
 function createMouseSprite(){
