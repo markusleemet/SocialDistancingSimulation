@@ -73,7 +73,7 @@ function mousePressed(){
     bullet.setVelocity(random(-5, 5), random(-5, 5));
     bullet.setCollider('circle');
     bullets.add(bullet);
-    bullet.life = 60;
+    bullet.life = 120;
 }
 
 function createMouseSprite(){
@@ -97,7 +97,6 @@ function createSprites(){
         sprite.addAnimation("moving", "../static/sprite1.png", "../static/sprite2.png", "../static/sprite3.png",
             "../static/sprite4.png", "../static/sprite5.png", "../static/sprite6.png", "../static/sprite5.png",
             "../static/sprite4.png","../static/sprite3.png","../static/sprite2.png","../static/sprite1.png");
-
         sprites.add(sprite);
     }
 }
