@@ -2,19 +2,19 @@
 const canvasHeight = window.innerHeight;
 const canvasWidth = window.innerWidth;
 let spriteRadius = 10;
+let infectedCount = 0;
 
 //Sprites variables
 let mouse;
-let sprites;
+let movingObjects;
 let bullets;
 
 
 function setup(){
-    console.log("setup");
     createCanvas(canvasWidth, canvasHeight);
-    sprites = new Group();
-    bullets = new Group();
 
+    movingObjects = new Group();
+    bullets = new Group();
 
     createSprites();
     createMouseSprite();
@@ -23,15 +23,12 @@ function setup(){
 function draw() {
     background('rgba(79,231,95, 1)');
     frameRate(60);
-
-    sprites.bounce(sprites)
-    sprites.bounce(mouse)
-
     checkForExit()
 
-    sprites.overlap(bullets,  function(){
-        this.changeAnimation('infected');
-    })
+    movingObjects.bounce(movingObjects)
+    movingObjects.bounce(mouse)
+
+    movingObjects.overlap(bullets, spriteInfected)
 
     // Update mouse position
     mouse.position.x = mouseX;
@@ -42,7 +39,7 @@ function draw() {
 }
 
 function checkForExit(){
-    for(let i = 0; i < sprites.size(); i++) {
+    for(let i = 0; i < movingObjects.size(); i++) {
         let sprite = allSprites[i];
         if (sprite.position.x < 0) {
             sprite.position.x = 1;
@@ -84,7 +81,7 @@ function createMouseSprite(){
 
 function createSprites(){
     // Create moving objects
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < numberFromUrl; i++) {
         let sprite = createSprite(
             random(spriteRadius, canvasWidth - spriteRadius),
             random(spriteRadius, canvasHeight - spriteRadius),
@@ -97,6 +94,23 @@ function createSprites(){
             "../static/sprite4.png", "../static/sprite5.png", "../static/sprite6.png", "../static/sprite5.png",
             "../static/sprite4.png","../static/sprite3.png","../static/sprite2.png","../static/sprite1.png");
         sprite.addAnimation('infected', "../static/infected1.png", "../static/infected2.png");
-        sprites.add(sprite);
+        movingObjects.add(sprite);
     }
+}
+
+function spriteInfected(movingObject, bullet){
+    bullet.remove();
+    if (movingObject.getAnimationLabel() !== "infected") {
+        movingObject.changeAnimation('infected');
+        infectedCount++;
+        if (infectedCount === numberFromUrl) {
+            console.log("Game over!")
+            $("#endModal").modal();
+        }
+    }
+}
+
+function restart(){
+    console.log("reload");
+    location.reload();
 }

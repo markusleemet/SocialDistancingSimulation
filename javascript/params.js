@@ -1,4 +1,4 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
-const numberFromUrl = urlParams.get('number');
+const numberFromUrl = Number(urlParams.get('number'));
