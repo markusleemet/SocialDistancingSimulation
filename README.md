@@ -31,4 +31,4 @@ Link mängule: https://social-distancing-simulation.netlify.app/?number=20
 
 # Protsessi kirjeldus
 
-Ülesande lahendamiseks läks mul ligikaudu 10 tundi. Selle aja sisse mahtus erinevate tehnoloogiate uurimine ja kaalumine(Sealhulgas mitu ebaõnnestunud katsetus).
+Ülesande lahendamiseks läks mul ligikaudu 10 tundi. Selle aja sisse mahtus erinevate tehnoloogiate uurimine ja kaalumine(Sealhulgas mitu ebaõnnestunud katsetust).
